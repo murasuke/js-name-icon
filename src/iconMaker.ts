@@ -1,71 +1,3 @@
-# TypeScriptで名前から丸いアイコンを作成する(Canvas)
-
-## 前書き
-
-チャットアプリのデフォルトアイコンとして、名前からアイコンを作成しようと考えました。
-
-Canvasに名前を描画して、丸くくり抜いたものを画像化しています。
-## 作成画面イメージ
-
-* 名前のアイコンを作成してダウンロードします
-* スペースで区切っていない場合は、先頭2文字で作成します
-
-![form1](./img/icon-form1.png) ダウンロード画像 ![yamata](./img/yamata.png)
-
-![form2](./img/icon-form2.png) ダウンロード画像 ![EB](./img/EB.png)
-
-![form2](./img/icon-form3.png) ダウンロード画像 ![EB2](./img/EB2.png)
-
-## 概要
-
-* 名前からアイコン画像を作成します(.png)。オプションで色やフォントを指定可能
-  * スペースを含む場合、splitして最初の2文字を結合する '山田 太郎' -> '山太'。
-  * スペースを含まない場合、先頭2文字にする '山田太郎' -> '山田'
-* 名前の文字列から、画像（オブジェクトURL）を生成して返します。imgタグのhrefにセットすると画像を表示できます。
-
-
-### 関数定義
-
-* オプションは指定しなけれれば直径60pxの円でアイコンを作成します。
-
-```typescript
-// Icon作成オプション
-export type IconOption = {
-  size?: number,      // iconのサイズ
-  foreColor?: string, // フォントの色
-  backColor?: string, // 背景色
-  fontScale?: number, // フォントのサイズ(iconのサイズに対する比率(0.7程度が適当))
-  fontFamily?: string,// フォントの種類
-};
-
-// 関数定義
-const iconMaker = async(name: string, option?: IconOption): Promise<string> => {
-};
-
-export default iconMaker;
-```
-
-## 利用方法
-
-* 作成した画像(png)をダウンロードするには下記のようにします。
-
-* imgタグの.hrefにセットすれば表示も可能です。
-
-```typescript
-  const downloadCanvasImage = async() => {
-    const imageUrl = await iconMaker(txtName);
-    // 画像ダウンロード
-    const dlLink = document.createElement("a"); 
-    dlLink.href = imageUrl;
-    dlLink.download = 'nameicon.png';
-    dlLink.click();
-    dlLink.remove();  
-  };
-```
-
-### ソース全体
-
-```typescript
 // Icon作成オプション
 export type IconOption = {
   size?: number,      // iconのサイズ
@@ -127,5 +59,3 @@ const iconMaker = async(name: string, option?: IconOption): Promise<string> => {
 };
 
 export default iconMaker;
-
-```
